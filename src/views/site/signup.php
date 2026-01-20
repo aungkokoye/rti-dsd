@@ -1,0 +1,40 @@
+<?php
+
+/** @var yii\web\View $this */
+/** @var yii\bootstrap5\ActiveForm $form */
+/** @var SignupForm $model */
+
+use app\models\SignupForm;
+use app\runtime\User;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
+
+$this->title = 'Signup';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="site-signup">
+    <h4><?= Html::encode($this->title) ?></h4>
+
+    <p>Please fill out the following fields to signup:</p>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+
+                <?= $form->field($model, 'email') ?>
+
+                <?= $form->field($model, 'user_type')->dropDownList(
+                        [User::ADMIN_ROLE => "Admin", User::DEVELOPER_ROLE => "Developer"],
+                        ['prompt' => Yii::t('app', 'Select User Type')]
+                )?>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                </div>
+
+            <?php ActiveForm::end(); ?>
+        </div>
+    </div>
+</div>

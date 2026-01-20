@@ -1,0 +1,51 @@
+services:
+  app:
+    build:
+      context: ./php-apache
+      dockerfile: Dockerfile
+    container_name: dsd_app
+    restart: unless-stopped
+    ports:
+      - "8800:80"
+      - "9001:9001"
+    volumes:
+      - ../src:/var/www/html
+      - ./php-apache/vhost.config:/etc/apache2/sites-available/000-default.conf
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html/web
+      XDEBUG_MODE: debug,develop # enable debug and develop features
+      XDEBUG_CONFIG: "client_host=host.docker.internal client_port=9003" # Xdebug to connect to your IDE on port 9003
+    depends_on:
+      - db
+    networks:
+      - dsd
+
+  db:
+    image: mysql:8.0
+    container_name: dsd_db
+    restart: unless-stopped
+    ports:
+      - "3606:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dsd
+      MYSQL_USER: dsd
+      MYSQL_PASSWORD: dsd
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - dsd
+
+  mailer:
+    image: schickling/mailcatcher
+    container_name: dsd_mailer
+    ports:
+      - 2025:1025
+      - 2080:1080
+    networks:
+      - dsd
+networks:
+  dsd:
+
+volumes:
+  db_data:

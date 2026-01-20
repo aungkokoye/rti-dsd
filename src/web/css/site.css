@@ -1,0 +1,9 @@
+main > .container, main > .container-fluid
+{
+    padding: 70px 15px 20px;
+}
+
+.captcha-img
+{
+    margin-right: 50px;
+}
