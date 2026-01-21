@@ -8,7 +8,7 @@ use yii\base\Model;
 /**
  * Signup form
  */
-class SignupForm extends Model
+class UserSignupForm extends Model
 {
     /**
      * @var string
@@ -23,8 +23,19 @@ class SignupForm extends Model
     /**
      * @var integer
      */
-    public $role;
+    public $site_user_id;
 
+    /**
+     * @var integer
+     */
+    public $domain_id;
+
+    /**
+     * @var string
+     */
+    public $site_key;
+
+    public $verifyCode;
 
     /**
      * {@inheritdoc}
@@ -42,9 +53,14 @@ class SignupForm extends Model
             ['username', 'string', 'max' => 100],
             ['username', 'unique', 'targetClass' => 'app\models\User', 'message' => 'This email address has already been taken.'],
 
-            ['role', 'required'],
-            ['role', 'integer'],
-            ['role', 'in', 'range' => [User::ADMIN_ROLE, User::DEVELOPER_ROLE]],
+            ['site_user_id', 'required'],
+            ['site_user_id', 'integer'],
+            ['site_key', 'required'],
+            ['site_key', 'string', 'max' =>5, 'min' => 5],
+            ['domain_id', 'required'],
+            ['domain_id', 'integer'],
+
+            ['verifyCode', 'captcha'],
         ];
     }
 
@@ -63,8 +79,11 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->name = $this->name;
-        $user->role = $this->role;
-        $user->domain_id = User::DSD_DOMAIN_ID;
+        $user->role = User::USER_ROLE;
+        $user->status = User::STATUS_INACTIVE;
+        $user->site_user_id = $this->site_user_id;
+        $user->site_key = $this->site_key;
+        $user->domain_id = $this->domain_id;
 
         $user->expires_at = (new \DateTime())->modify('+15 minutes')
             ->format('Y-m-d H:i:s');

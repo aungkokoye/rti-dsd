@@ -20,8 +20,15 @@ docker compose down
 ````
 #### Inside app web container
 ````
-
 docker exec -it dsd_app bash
+````
+#### Set Up
+***make sure run following commands inside the `laravel_app` container***
+````
+- cd /var/www/html
+- composer install
+- php yii migrate
+````
 #### DB Editor Settings
 ````
 host: 127.0.0.1

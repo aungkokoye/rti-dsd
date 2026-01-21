@@ -1,9 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var \app\runtime\User $user */
-
-use app\runtime\User;
+/** @var \app\models\User $user */
 
 $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/verify-email', 'token' => $user->verification_token]);
 ?>

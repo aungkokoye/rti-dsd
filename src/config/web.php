@@ -8,6 +8,17 @@ $config = [
     'name' => 'Domain Service Desk',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'container' => [
+        'definitions' => [
+            \yii\bootstrap5\LinkPager::class => [
+                'options' => ['class' => 'pagination justify-content-center'],
+                'firstPageLabel' => '«',
+                'lastPageLabel' => '»',
+                'prevPageLabel' => 'Previous',
+                'nextPageLabel' => 'Next',
+            ],
+        ],
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -21,7 +32,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\runtime\User',
+            'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
