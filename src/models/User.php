@@ -109,6 +109,8 @@ class User extends ActiveRecord implements IdentityInterface
             }"],
             ['site_key', 'string', 'max' => 32],
             ['site_user_id', 'integer'],
+
+            [['expires_at', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 

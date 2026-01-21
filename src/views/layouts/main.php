@@ -38,7 +38,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto'],
-        'items' => [ ]
+        'items' => [
+                ['label' => 'Category', 'url' => ['/category/index']],
+                ]
     ]);
 
     echo Html::beginTag('div', ['class' => 'navbar-nav ms-auto']);
