@@ -1,6 +1,6 @@
 <?php
 
-use app\runtime\User;
+use app\models\User;
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */

@@ -17,10 +17,12 @@ class m260119_105219_create_user_table extends Migration
 
         $this->createTable('{{%user}}', [
             'id'                        => $this->primaryKey(),
+            'name'                      => $this->string()->notNull(),
             'username'                  => $this->string()->notNull()->unique(),
-            'email'                     => $this->string()->notNull()->unique(),
-            'user_type'                 => $this->smallInteger()->notNull(),
-            'domain_type'               => $this->smallInteger()->notNull(),
+            'role'                      => $this->smallInteger()->notNull(),
+            'site_key'                  => $this->string(32)->defaultValue(null),
+            'site_user_id'              => $this->integer()->defaultValue(null),
+            'domain_id'                 => $this->integer()->notNull(),
             'status'                    => $this->smallInteger()->notNull()->defaultValue(10),
             'auth_key'                  => $this->string(32)->notNull(),
             'password_hash'             => $this->string()->notNull(),

@@ -5,10 +5,13 @@ namespace app\controllers;
 use app\models\LoginForm;
 use app\models\ResetForm;
 use app\models\SignupForm;
+use app\models\User;
+use app\models\UserSignupForm;
 use Yii;
 use yii\base\Exception;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -147,5 +150,50 @@ class SiteController extends Controller
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     */
+    public function actionDomainLogin(): Response|string
+    {
+        $token = Yii::$app->request->get('token',  null);
+        $data = User::tokenValidation($token);
+        $user = User::findForLinkLogin(
+            $data[USER::SITE_KEY] ?? null,
+            $data[USER::SITE_USER_ID] ?? null,
+            $data[USER::SITE_ID] ?? null
+        );
+
+        if ($user) {
+            Yii::$app->user->login($user);
+            return $this->redirect('/site/index');
+        }
+
+        $form = new UserSignupForm();
+        $form->site_key = $data[USER::SITE_KEY] ?? null;
+        $form->site_user_id = $data[USER::SITE_USER_ID] ?? null;
+        $form->domain_id = $data[USER::SITE_ID] ?? null;
+
+        if ($form->load(Yii::$app->request->post()) && $form->signup()) {
+            return $this->render(
+                'info',
+                ['message' => 'Please check your email for further instructions.']
+                );
+        }
+
+        return $this->render('domain_login', [
+            'model' => $form,
+        ]);
+    }
+
+    public function actionTest(): Response
+    {
+        $data = '{"site_key":"qyerp", "site_id": 2, "user_id": 1}';
+        $encryptedToken = Yii::$app->security->encryptByPassword($data, Yii::$app->params['encryptionKey']);
+        $encryptedToken = urlencode(base64_encode($encryptedToken));
+
+        return $this->redirect('/site/domain-login?token=' . $encryptedToken);
     }
 }

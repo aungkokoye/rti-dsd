@@ -8,7 +8,7 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\captcha\Captcha;
 
-$this->title = 'Login';
+$this->title = 'Client Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -19,19 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-5">
 
-            <?php $form = ActiveForm::begin([
-                'id' => 'login-form',
-                'fieldConfig' => [
-                    'template' => "{label}\n{input}\n{error}",
-                    'labelOptions' => ['class' => 'col-form-label'],
-                    'inputOptions' => ['class' => 'col-lg-3 form-control'],
-                    'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-                ],
-            ]); ?>
+            <?php $form = ActiveForm::begin(['id' => 'login-form',]); ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'username')->textInput() ?>
 
             <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
                     'captchaAction' => 'site/captcha',
@@ -45,13 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
             ]) ?>
 
-            <?= $form->field($model, 'rememberMe')->checkbox([
-                    'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            ]) ?>
-
             <div class="form-group">
                 <div>
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Register', ['class' => 'btn btn-primary', 'name' => 'register-button']) ?>
                 </div>
             </div>
 

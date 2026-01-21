@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\runtime\User;
 use Yii;
 use yii\base\Model;
 
@@ -17,7 +16,7 @@ class LoginForm extends Model
     /**
      * @var string
      */
-    public $email;
+    public $username;
 
     /**
      * @var string
@@ -43,8 +42,8 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['email', 'password'], 'required'],
-            ['email', 'email'],
+            [['username', 'password'], 'required'],
+            ['username', 'email'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -79,7 +78,8 @@ class LoginForm extends Model
     public function login(): bool
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            return Yii::$app->user
+                ->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
         return false;
     }
@@ -92,7 +92,7 @@ class LoginForm extends Model
     public function getUser(): ?User
     {
         if ($this->_user === false) {
-            $this->_user = User::findByEmail($this->email);
+            $this->_user = User::findByUsername($this->username);
         }
 
         return $this->_user;
