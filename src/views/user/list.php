@@ -5,7 +5,7 @@
     <div class="delete-custom-modal__content" data-content>
 
         <div class="delete-custom-modal__body">
-            <p>Are you sure you want to delete this ticket?</p>
+            <p>Are you sure you want to delete this user?</p>
         </div>
 
         <div class="delete-custom-modal__footer">
@@ -15,88 +15,36 @@
     </div>
 </div>
 
+<!-- Reset Password Modal -->
+<div class="custom-modal" id="successCustomModal" style="display:none;">
+    <div class="custom-modal__overlay"></div>
 
-<div class="filter-bar mb-3">
-    <div class="filter-bar__inner d-flex flex-wrap justify-content-between align-items-center">
-        <!-- Left side: Filter, Sort, Reset -->
-        <div class="filter-bar-left d-flex flex-wrap gap-2 align-items-center">
+    <div class="success-custom-modal__content" data-content>
 
-            <div class="dropdown" data-bs-auto-close="outside">
-                <button class="btn dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/images/icons/filter.svg" alt="Filter Icon" />
-                    Filter
-                </button>
-                <div class="dropdown-menu dropdown-menu-width p-2" aria-labelledby="filterDropdown">
-                    <select class="form-select mb-2" name="category">
-                        <option value="">Select Category</option>
-                        <option value="cat1">Category 1</option>
-                        <option value="cat2">Category 2</option>
-                    </select>
-                    <select class="form-select mb-2" name="status">
-                        <option value="">Select Status</option>
-                        <option value="open">Open</option>
-                        <option value="in_progress">In Progress</option>
-                        <option value="pending">Pending</option>
-                        <option value="resolved">Resolved</option>
-                        <option value="closed">Closed</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
-                    <div class="bottom_filter__wrapper">
-                        <button class="clear-filter-btn">Clear Filter</button>
-                        <button class="close-dropdown-btn">Close</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sort Button with Dropdown -->
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/images/icons/sort.svg" alt="Sort Icon" />
-                    Sort
-                </button>
-                <div class="dropdown-menu dropdown-menu-width p-2" aria-labelledby="filterDropdown">
-                    <select class="form-select mb-2" name="sort">
-                        <option value="">Select Sorting</option>
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </select>
-                    <div class="bottom_filter__wrapper">
-                        <button class="clear-filter-btn">Clear Filter</button>
-                        <button class="close-dropdown-btn">Close</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reset Button -->
-            <button type="button" class="reset_btn btn">
-                Reset
-            </button>
-
+        <div class="success-custom-modal__body">
+            <img src="/images/icons/success.svg" alt="Success Icon" />
+            <p>Reset password request sent successfully.</p>
         </div>
 
-
-        <!-- Right side: Search -->
-        <div class="filter-bar-right">
-            <img src="/images/icons/search.svg" alt="Search Icon" />
-            <input type="text" name="search" class="form-control" placeholder="Search by title or description" />
+        <div class="success-custom-modal__footer">
+            <button class="btn btn-primary" data-close-success-modal>OK</button>
         </div>
     </div>
 </div>
 
-<div class="site-ticket__list" id="page_wrapper">
+<div class="site-user__list" id="page_wrapper">
 
-    <div class="filter__value_chips"></div>
 
-    <a href="/site/create" class="btn btn-primary create_btn">+ Create a Ticket</a>
+    <a href="/user/create" class="btn btn-primary create_btn">+ Create a User</a>
+
     <div class="flex-table-container">
         <!-- Table Header -->
         <div class="flex-table-header">
-            <div class="flex-table-cell cell-ticket-id">Ticket ID</div>
-            <div class="flex-table-cell cell-title">Title</div>
-            <div class="flex-table-cell cell-created-by">Created By</div>
-            <div class="flex-table-cell cell-site-id">Site ID</div>
+            <div class="flex-table-cell cell-user-id">ID</div>
+            <div class="flex-table-cell cell-email">Email</div>
+            <div class="flex-table-cell cell-username">Username</div>
+            <div class="flex-table-cell cell-role">Role</div>
             <div class="flex-table-cell cell-status">Status</div>
-            <div class="flex-table-cell cell-assigned-to">Assigned To</div>
             <div class="flex-table-cell cell-created-date">Created Date</div>
             <div class="flex-table-cell cell-action"></div>
         </div>
@@ -104,26 +52,25 @@
         <!-- Table Body -->
         <div class="flex-table-body">
             <?php
-            $statuses = ['open', 'in_progress', 'pending', 'resolved', 'closed', 'cancelled'];
+            $statuses = ['active', 'inactive', 'disabled'];
             $ticketId = 1;
 
             foreach ($statuses as $status) : ?>
                 <div class="flex-table-row">
-                    <div class="flex-table-cell cell-ticket-id"><?= $ticketId++ ?></div>
-                    <div class="flex-table-cell cell-title"><a href="/site/detail">Sample ticket title for <?= ucfirst(str_replace('_', ' ', $status)) ?></a></div>
-                    <div class="flex-table-cell cell-created-by">User<?= $ticketId ?></div>
-                    <div class="flex-table-cell cell-site-id">1100<?= $ticketId ?></div>
+                    <div class="flex-table-cell cell-user-id"><?= $ticketId++ ?></div>
+                    <div class="flex-table-cell cell-email"><a  href="/user/edit">test@gmail.com</a></div>
+                    <div class="flex-table-cell cell-username">User<?= $ticketId ?></div>
+                    <div class="flex-table-cell cell-role">Designer</div>
                     <div class="flex-table-cell cell-status">
                         <span class="status-chip <?= $status ?>"><?= ucfirst(str_replace('_', ' ', $status)) ?></span>
                     </div>
-                    <div class="flex-table-cell cell-assigned-to">Developer</div>
                     <div class="flex-table-cell cell-created-date">2026 Jan 19</div>
                     <div class="flex-table-cell cell-action">
                         <div class="dropdown" data-bs-auto-close="outside">
                             <img src="/images/icons/three_dots.svg" alt="More Icon" class="dropdown-toggle" data-bs-toggle="dropdown" style="cursor:pointer;" />
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/site/detail">View</a></li>
-                                <li><a class="dropdown-item" href="/site/edit">Edit</a></li>
+                                <li><a class="dropdown-item" href="/user/edit">Edit</a></li>
+                                <li><a class="dropdown-item" href="javascript:;" data-open-success-modal>Reset Password</a></li>
                                 <li><a class="dropdown-item text-danger" href="javascript:;" data-open-delete-modal>Delete</a></li>
                             </ul>
                         </div>
@@ -208,7 +155,7 @@
             updateFilterChips();
 
             console.log('filterData ', filterData)
-            return;
+
             $.ajax({
                 url: '/test',
                 type: 'POST',
@@ -217,6 +164,7 @@
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
+                    $('#results-container').html(response);
                 },
                 error: function(err) {
                     console.error(err);
@@ -239,19 +187,6 @@
             applyFilters();
         });
 
-        // Reset all filters
-        $('.reset_btn').on('click', function() {
-            $('.filter-bar-right input[name="search"]').val('');
-
-            $('.dropdown select').each(function() {
-                $(this).prop('selectedIndex', 0);
-            });
-
-            $('.filter__value_chips').empty();
-
-            applyFilters();
-        });
-
     });
 
 
@@ -261,5 +196,13 @@
 
     $(document).on('click', '[close-delete-modal]', function() {
         $('#deleteCustomModal').fadeOut(200);
+    });
+
+    $(document).on('click', '[data-open-success-modal]', function() {
+        $('#successCustomModal').fadeIn(200);
+    });
+
+    $(document).on('click', '[data-close-success-modal]', function() {
+        $('#successCustomModal').fadeOut(200);
     });
 </script>

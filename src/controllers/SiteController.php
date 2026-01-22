@@ -148,4 +148,34 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    /**
+     * Create Ticket Page
+     */
+    public function actionCreate()
+    {
+        $user = Yii::$app->user->identity;
+
+        return $this->render('create');
+    }
+
+    /**
+     * Detail Page
+     */
+    public function actionDetail()
+    {
+        $user = Yii::$app->user->identity;
+
+        return $this->render('detail');
+    }
+
+    /**
+     * Edit Page
+     */
+    public function actionEdit()
+    {
+        $user = Yii::$app->user->identity;
+
+        return $this->render('edit');
+    }
 }
