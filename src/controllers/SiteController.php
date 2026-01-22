@@ -65,9 +65,9 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex()
     {
-        return $this->render('index');
+        return $this->redirect(['/ticket/index']);
     }
 
     /**
@@ -168,7 +168,7 @@ class SiteController extends Controller
 
         if ($user) {
             Yii::$app->user->login($user);
-            return $this->redirect('/site/index');
+            return $this->redirect('/site/login');
         }
 
         $form = new UserSignupForm();

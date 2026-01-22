@@ -9,7 +9,7 @@ $this->title = Yii::t('app', 'Create Ticket');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tickets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ticket-create">
+<div class="site-user__create_category" id="page_wrapper">
 
     <h4><?= Html::encode($this->title) ?></h4>
 

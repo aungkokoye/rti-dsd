@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Ticket;
 use app\models\TicketSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -101,6 +102,34 @@ class TicketController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionAssigneeUpdate($id)
+    {
+        $request = Yii::$app->request;
+
+        if ($request->isAjax && $request->isPost) {
+
+            $model = $this->findModel($id);
+
+            $model->assignee_id = $request->post('assignee_id');
+            $model->status_id   = $request->post('status_id');
+
+            if ($model->save(false, ['assignee_id', 'status_id'])) {
+                return $this->asJson([
+                    'success' => true,
+                ]);
+            }
+
+            return $this->asJson([
+                'success' => false,
+                'errors' => $model->getErrors(),
+            ]);
+        }
+
+        throw new \yii\web\BadRequestHttpException('Invalid request');
+    }
+
+
 
     /**
      * Deletes an existing Ticket model.

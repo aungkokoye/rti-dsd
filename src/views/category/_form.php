@@ -14,8 +14,16 @@ use yii\bootstrap5\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+    <div class="form-group d-flex flex-column align-items-center flex-sm-row justify-content-center gap-3">
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(
+            'Cancel',
+            '/category/index',
+            [
+                'class' => 'btn btn-outline-primary',
+                'name' => 'cancel-button',
+            ]
+        ) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
