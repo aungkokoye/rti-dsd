@@ -44,7 +44,7 @@ class TicketSearch extends Ticket
      */
     public function search(array $params, string $formName = null): ActiveDataProvider
     {
-        $query = Ticket::find()->joinWith(['category', 'assignee']);
+        $query = Ticket::find()->with(['category', 'assignee', 'creator']);
 
         // add conditions that should always apply here
 

@@ -63,11 +63,10 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
-     * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): Response|string
     {
-        return $this->redirect(['/ticket/index']);
+        return $this->redirect(['ticket/index']);
     }
 
     /**
