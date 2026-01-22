@@ -343,9 +343,9 @@
     .btn.btn-primary, 
     .btn-success, 
     .btn-outline-primary {
-        max-width: 200px;
+        max-width: 180px;
         height: 40px;
-        font-size: 14px;
+        font-size: 13px;
     }
     .navbar-expand-md .navbar-nav li a {
         padding-left: 10px;

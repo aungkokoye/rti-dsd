@@ -313,11 +313,12 @@ body {
     }
     .filter-bar .filter-bar-right {
         margin-left: auto;
+        margin-right: auto;
     }
     .site-error img {
         width: 400px;
     }
     #page_wrapper {
-        padding: 0px 20px;
+        padding: 20px 20px !important;
     }
 }
