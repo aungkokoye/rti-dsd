@@ -4,9 +4,12 @@ namespace app\controllers;
 
 use app\models\Ticket;
 use app\models\TicketSearch;
+use Yii;
+use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * TicketController implements the CRUD actions for Ticket model.
@@ -16,7 +19,7 @@ class TicketController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return array_merge(
             parent::behaviors(),
@@ -36,7 +39,7 @@ class TicketController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $searchModel = new TicketSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
@@ -53,7 +56,7 @@ class TicketController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id): string
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -63,9 +66,9 @@ class TicketController extends Controller
     /**
      * Creates a new Ticket model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
-    public function actionCreate()
+    public function actionCreate(): Response|string
     {
         $model = new Ticket();
 
@@ -86,10 +89,10 @@ class TicketController extends Controller
      * Updates an existing Ticket model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return string|Response
+     * @throws NotFoundHttpException|Exception if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id): Response|string
     {
         $model = $this->findModel($id);
 
@@ -106,10 +109,10 @@ class TicketController extends Controller
      * Deletes an existing Ticket model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id): Response
     {
         $this->findModel($id)->delete();
 
@@ -123,7 +126,7 @@ class TicketController extends Controller
      * @return Ticket the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel(int $id): Ticket
     {
         if (($model = Ticket::findOne(['id' => $id])) !== null) {
             return $model;

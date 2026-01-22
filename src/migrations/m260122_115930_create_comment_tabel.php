@@ -18,8 +18,8 @@ class m260122_115930_create_comment_tabel extends Migration
         $this->createTable('{{%comment}}', [
             'id'            => $this->primaryKey(),
             'ticket_id'     => $this->integer()->notNull(),
-            'user_id'       => $this->integer()->defaultValue(null),
             'message'       => $this->text()->notNull(),
+            'created_by'    => $this->integer()->notNull(),
             'created_at'    => $this->dateTime()->notNull(),
         ]);
 
@@ -35,21 +35,6 @@ class m260122_115930_create_comment_tabel extends Migration
             '{{%comment}}',
             'ticket_id',
             '{{%ticket}}',
-            'id',
-        );
-
-        $this->createIndex(
-            '{{%idx-comment-user_id}}',
-            '{{%comment}}',
-            'user_id'
-        );
-
-        // add foreign key for table `{{%ticket}}`
-        $this->addForeignKey(
-            '{{%fk-comment-user_id}}',
-            '{{%comment}}',
-            'user_id',
-            '{{%user}}',
             'id',
         );
     }

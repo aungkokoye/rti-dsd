@@ -17,6 +17,7 @@ use kartik\date\DatePicker;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => ['data-pjax' => true],
     ]); ?>
 
     <?= $form->field($model, 'category_id')->dropDownList(

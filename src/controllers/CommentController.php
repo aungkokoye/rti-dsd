@@ -3,10 +3,12 @@
 namespace app\controllers;
 
 use app\models\Comment;
-use app\models\CommentSearch;
+use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use Yii;
 
 /**
  * CommentController implements the CRUD actions for Comment model.
@@ -32,22 +34,6 @@ class CommentController extends Controller
     }
 
     /**
-     * Lists all Comment models.
-     *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        $searchModel = new CommentSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
      * Displays a single Comment model.
      * @param int $id ID
      * @return string
@@ -63,15 +49,20 @@ class CommentController extends Controller
     /**
      * Creates a new Comment model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @param int $id
+     * @return string|Response
+     * @throws Exception
      */
-    public function actionCreate()
+    public function actionCreate(int $ticketId): Response|string // $id is ticket ID
     {
+
         $model = new Comment();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $model->ticket_id = $ticketId;
+                $model->save();
+                return $this->redirect(['ticket/view', 'id' => $ticketId]);
             }
         } else {
             $model->loadDefaultValues();
@@ -83,30 +74,10 @@ class CommentController extends Controller
     }
 
     /**
-     * Updates an existing Comment model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Deletes an existing Comment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
@@ -123,7 +94,7 @@ class CommentController extends Controller
      * @return Comment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel(int $id): Comment
     {
         if (($model = Comment::findOne(['id' => $id])) !== null) {
             return $model;

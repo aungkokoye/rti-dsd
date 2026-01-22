@@ -86,7 +86,7 @@ class Ticket extends \yii\db\ActiveRecord
             [['category_id', 'status_id', 'subject', 'description'], 'required'],
             [['category_id', 'assignee_id', 'status_id', 'betting_relative_user_id', 'created_by'], 'integer'],
             [['description'], 'string'],
-            [['betting_time_of_occurrence', 'created_at', 'updated_at'], 'safe'],
+            [['betting_time_of_occurrence', 'created_at', 'updated_at', 'created_by'], 'safe'],
             [['subject'], 'string', 'max' => 255],
             [['betting_number'], 'string', 'max' => 10],
             [['assignee_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['assignee_id' => 'id']],
@@ -133,6 +133,16 @@ class Ticket extends \yii\db\ActiveRecord
     public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * Gets query for [[Comments]].
+     *
+     * @return ActiveQuery
+     */
+    public function getComments(): ActiveQuery
+    {
+        return $this->hasMany(Comment::class, ['ticket_id' => 'id']);
     }
 
     /**
