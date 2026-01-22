@@ -1,3 +1,10 @@
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script>
+
+
 <!-- ======================= Delete Modal -->
 <div class="custom-modal" id="deleteCustomModal" style="display:none;">
     <div class="custom-modal__overlay"></div>
@@ -157,7 +164,9 @@
             <span class="line"></span>
         </div>
         <div class="attachment">
-            <img src="/images/sample.png" />
+            <a href="/images/sample.png"  data-fancybox="gallery">
+                <img src="/images/sample.png" />
+            </a>
         </div>
     </div>
 
@@ -233,4 +242,7 @@
     $(document).on('click', '[close-assign-modal]', function() {
         $('#assignCustomModal').fadeOut(200);
     });
+
+    Fancybox.bind("[data-fancybox]");
+
 </script>
