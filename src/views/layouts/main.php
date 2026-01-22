@@ -40,6 +40,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'options' => ['class' => 'navbar-nav me-auto'],
         'items' => [
                 ['label' => 'Category', 'url' => ['/category/index']],
+                ['label' => 'Ticket', 'url' => ['/ticket/index']],
                 ]
     ]);
 

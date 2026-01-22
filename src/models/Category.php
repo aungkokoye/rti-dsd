@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category".
@@ -61,4 +62,16 @@ class Category extends ActiveRecord
         ];
     }
 
+    /**
+     * Get all categories for dropdown
+     * @return array
+     */
+    public static function getDropdownList(): array
+    {
+        return ArrayHelper::map(
+            static::find()->orderBy(['name' => SORT_ASC])->all(),
+            'id',
+            'name'
+        );
+    }
 }
