@@ -40,7 +40,7 @@ class m260122_080609_create_ticket_table extends Migration
             'category_id'
         );
 
-        // add foreign key for table `{{%project}}`
+        // add foreign key for table `{{%category}}`
         $this->addForeignKey(
             '{{%fk-ticket-category_id}}',
             '{{%ticket}}',
