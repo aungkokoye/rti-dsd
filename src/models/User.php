@@ -7,6 +7,7 @@ use yii\base\Exception;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\IdentityInterface;
 use yii\web\NotFoundHttpException;
@@ -290,5 +291,29 @@ class User extends ActiveRecord implements IdentityInterface
     public function getDomainName(): string
     {
         return self::DOMAIN_TYPES[$this->domain_id];
+    }
+
+    /**
+     * Get users that can be assigned to a ticket (ticket owner + developers + admins)
+     * @param int|null $ownerId The ticket owner's user ID
+     * @return array
+     */
+    public static function getAssignableUsers(?int $ownerId = null): array
+    {
+        $query = static::find()
+            ->where(['status' => self::STATUS_ACTIVE])
+            ->andWhere(['in', 'role', [self::ADMIN_ROLE, self::DEVELOPER_ROLE]]);
+
+        if ($ownerId) {
+            $query->orWhere(['id' => $ownerId, 'status' => self::STATUS_ACTIVE]);
+        }
+
+        return ArrayHelper::map(
+            $query->orderBy(['name' => SORT_ASC])->all(),
+            'id',
+            function ($model) {
+                return $model->name . ' (' . self::USER_TYPES[$model->role] . ')';
+            }
+        );
     }
 }
