@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "comment".
@@ -21,6 +22,11 @@ use yii\db\ActiveQuery;
  */
 class Comment extends \yii\db\ActiveRecord
 {
+    /**
+     * @var UploadedFile[]
+     */
+    public $attachmentFiles;
+
     /**
      * {@inheritdoc}
      */
@@ -62,6 +68,9 @@ class Comment extends \yii\db\ActiveRecord
             [['message'], 'string'],
             [['created_at', 'created_by'], 'safe'],
             [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ticket::class, 'targetAttribute' => ['ticket_id' => 'id']],
+            [['attachmentFiles'], 'file', 'skipOnEmpty' => true,
+                'extensions' => 'png, jpg, jpeg, gif, pdf, doc, docx, xls, xlsx, csv', 'maxFiles' => 2,
+                'maxSize' => 2 * 1024 * 1024, 'tooBig' => 'Max file size is 2MB'],
         ];
     }
 
@@ -92,5 +101,11 @@ class Comment extends \yii\db\ActiveRecord
     public function getCreator(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'created_by']);
+    }
+
+    public function getAttachments(): ActiveQuery
+    {
+        return $this->hasMany(Attachment::class, ['model_id' => 'id'])
+            ->andWhere(['model_type' => self::class]); // 'app\models\Ticket'
     }
 }

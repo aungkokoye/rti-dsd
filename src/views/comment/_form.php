@@ -11,11 +11,15 @@ use yii\bootstrap5\ActiveForm;
 
 <div class="comment-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+            'options' => ['enctype' => 'multipart/form-data'],
+    ]); ?>
 
     <?= $form->field($model, 'message')->widget(Summernote::class, [
             'useKrajeePresets' => true,
     ]) ?>
+
+    <?= $form->field($model, 'attachmentFiles[]')->fileInput(['multiple' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
