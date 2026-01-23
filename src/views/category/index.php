@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="flex-table-cell cell-ticket-id">ID</div>
             <div class="flex-table-cell cell-title">Name</div>
             <div class="flex-table-cell cell-created-date">Created At</div>
-            <div class="flex-table-cell cell-created-date">Created Updated At</div>
+            <div class="flex-table-cell cell-created-date">Created At</div>
             <div class="flex-table-cell cell-action"></div>
         </div>
 
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="flex-table-row">
                     <div class="flex-table-cell cell-ticket-id"><?= $model['id'] ?></div>
                     <div class="flex-table-cell cell-title">
-                        <?= Html::a($model['name'], ['ticket/view', 'id' => $model->id]) ?>
+                        <?= Html::a($model['name'], ['category/update', 'id' => $model->id]) ?>
                     </div>
                     <div class="flex-table-cell cell-created-date"><?= date('Y M d', strtotime($model['created_at'])) ?> </div>
                     <div class="flex-table-cell cell-created-date"><?= date('Y M d', strtotime($model['updated_at'])) ?> </div>
