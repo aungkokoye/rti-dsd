@@ -193,6 +193,11 @@
     color: white;
     border-color: #007bff;
 }
+.pagination-container .page-btn {
+    text-decoration: none;
+    text-align: center;
+    color: #000;
+}
 .form-select {
     border-color: #DADADA;
     font-size: 13px;
@@ -343,6 +348,14 @@
 }
 .help-block {
     color: #F66460;
+}
+.field-ticket-attachmentfiles .input-group-btn {
+    display: flex;
+    gap: 3px;
+    margin-left: 10px !important;
+}
+.field-ticket-attachmentfiles .input-group-btn button{
+    white-space: nowrap;
 }
 @media (max-width: 768px) {
     .btn.btn-primary, 
