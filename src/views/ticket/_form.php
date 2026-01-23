@@ -11,6 +11,34 @@ use yii\bootstrap5\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\Ticket $model */
 /** @var yii\bootstrap5\ActiveForm $form */
+
+$initialPreview = [];
+$initialPreviewConfig = [];
+
+if (!$model->isNewRecord && !empty($model->attachments)) {
+    foreach ($model->attachments as $attachment) {
+        $ext = strtolower(pathinfo($attachment->file_name, PATHINFO_EXTENSION));
+        if (in_array($ext, ['jpg','jpeg','png','gif','webp'])) {
+            // Image preview
+            $initialPreview[] = $attachment->file_path;
+            $initialPreviewConfig[] = [
+                'caption' => $attachment->file_name,
+                'url' => ['/comment/delete-attachment', 'id' => $attachment->id], // optional delete URL
+                'key' => $attachment->id,
+            ];
+        } else {
+            // Non-image file
+            $initialPreview[] = Html::a($attachment->file_path, $attachment->file_path, ['target'=>'_blank']);
+            $initialPreviewConfig[] = [
+                'caption' => $attachment->file_name,
+                'url' => ['/comment/delete-attachment', 'id' => $attachment->id],
+                'key' => $attachment->id,
+                'type' => 'object', // non-image
+            ];
+        }
+    }
+}
+
 ?>
 
 <div class="ticket-form">
@@ -47,33 +75,37 @@ use yii\bootstrap5\ActiveForm;
         'class' => 'form-control',
     ]) ?>
 
-    <?= $form->field($model, 'attachmentFiles[]')->widget(FileInput::class, [
-        'options' => [
-            'accept' => 'image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv',
-            'multiple' => true,
+<?= $form->field($model, 'attachmentFiles[]')->widget(FileInput::class, [
+    'options' => [
+        'accept' => 'image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv',
+        'multiple' => true,
+    ],
+    'pluginOptions' => [
+        'showPreview' => true,
+        'showCaption' => true,
+        'showRemove' => true,
+        'showUpload' => false,
+        'browseClass' => 'btn btn-outline-primary',
+        'browseIcon' => '<i class="bi bi-folder2-open"></i> ',
+        'browseLabel' => 'Select Files',
+        'removeClass' => 'btn btn-outline-danger',
+        'removeIcon' => '<i class="bi bi-trash"></i> ',
+        'removeLabel' => 'Remove',
+        'maxFileCount' => 5,
+        'maxFileSize' => 2048,
+        'allowedFileExtensions' => ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'csv'],
+        'fileActionSettings' => [
+            'showZoom'    => false,
+            'showRemove'  => true,
+            'showUpload'  => false,
+            'showDrag'    => false,
         ],
-        'pluginOptions' => [
-            'showPreview' => true,
-            'showCaption' => true,
-            'showRemove' => true,
-            'showUpload' => false,
-            'browseClass' => 'btn btn-primary',
-            'browseIcon' => '<i class="bi bi-folder2-open"></i> ',
-            'browseLabel' => 'Select Files',
-            'removeClass' => 'btn btn-danger',
-            'removeIcon' => '<i class="bi bi-trash"></i> ',
-            'removeLabel' => 'Remove',
-            'maxFileCount' => 5,
-            'maxFileSize' => 2048,
-            'allowedFileExtensions' => ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'csv'],
-            'fileActionSettings'    => [
-                    'showZoom'    => false, // Hide zoom/enlarge icon
-                    'showRemove'  => true,  // Show delete icon
-                    'showUpload'  => false, // Hide upload icon
-                    'showDrag'    => false, // Hide drag icon
-                ],
-        ],
-    ])->label('Attachments') ?>
+        'initialPreview' => $initialPreview,
+        'initialPreviewAsData' => true, // show image previews
+        'initialPreviewConfig' => $initialPreviewConfig,
+        'overwriteInitial' => false,    // keep old files
+    ],
+])->label('Attachments') ?>
 
     <div class="form-group d-flex flex-column align-items-center flex-sm-row justify-content-center gap-3">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>

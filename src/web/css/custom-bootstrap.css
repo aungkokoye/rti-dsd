@@ -338,6 +338,9 @@
     border-color: #939494;
     background: #F1F0F0;
 }
+.help-block {
+    color: #F66460;
+}
 @media (max-width: 768px) {
     .btn.btn-primary, 
     .btn-success, 

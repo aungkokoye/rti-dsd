@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Attachment;
+use app\models\Comment;
 use app\models\Ticket;
 use app\models\TicketSearch;
 use Yii;
@@ -60,8 +61,14 @@ class TicketController extends Controller
      */
     public function actionView($id): string
     {
+        $ticket = $this->findModel($id);
+
+        $commentModel = new Comment();
+        $commentModel->ticket_id = $ticket->id;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $ticket,
+            'commentModel' => $commentModel,
         ]);
     }
 

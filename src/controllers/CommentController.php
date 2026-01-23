@@ -91,6 +91,10 @@ class CommentController extends Controller
     {
         $this->findModel($id)->delete();
 
+        if (\Yii::$app->request->isAjax) {
+            return $this->asJson(['success' => true]);
+        }
+
         return $this->redirect(['index']);
     }
 
