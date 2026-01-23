@@ -66,11 +66,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     'url' => ['/category/index'],
                     'active' => Yii::$app->controller->id === 'category' && Yii::$app->controller->action->id === 'index',
                 ],
-                [
-                    'label' => 'User List', 
-                    'url' => ['/user/list'],
-                    'active' => Yii::$app->controller->id === 'user' && Yii::$app->controller->action->id === 'list',
-                ],
+                // [
+                //     'label' => 'User List', 
+                //     'url' => ['/user/list'],
+                //     'active' => Yii::$app->controller->id === 'user' && Yii::$app->controller->action->id === 'list',
+                // ],
             ],
         ]);
 
@@ -82,7 +82,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         } else {
             echo Html::a(
                 Html::img('@web/images/icons/avatar.svg', ['alt' => 'Avatar', 'class' => 'user-avatar me-1']) 
-                . Yii::$app->user->identity->username,
+                . Yii::$app->user->identity->name,
                 ['/user/profile'],
                 ['class' => 'nav-link me-2 username']
             );

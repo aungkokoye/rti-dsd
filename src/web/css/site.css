@@ -208,7 +208,7 @@ body {
 .site-detail_ticket .betting_number__wrapper .title .line,
 .site-detail_ticket .attachment__wrapper .title .line {
     background: #DADADA;
-    height: 2px;
+    height: 1px;
     width: 100%;
 }
 .site-detail_ticket .description__wrapper .description {
