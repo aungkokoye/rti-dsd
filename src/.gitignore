@@ -37,3 +37,9 @@ tests/_support/_generated
 
 # runtime files (logs, cache, debug)
 /runtime
+
+# web assets (generated)
+/web/assets
+
+# uploaded files
+/web/uploads
