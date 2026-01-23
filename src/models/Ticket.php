@@ -146,6 +146,25 @@ class Ticket extends \yii\db\ActiveRecord
             ->andWhere(['model_type' => self::class]); // 'app\models\Ticket'
     }
 
+    public function getImageUrls(): array
+    {
+        $urls = [];
+        foreach ($this->attachments as $attachment) {
+            $urls[] = $attachment->file_path;
+        }
+
+        return $urls;
+    }
+
+    public function getPreviewImageConfig(): array
+    {
+        $config = [];
+        foreach ($this->attachments as $attachment) {
+            $config[] = ['key' => $attachment->id];
+        }
+
+        return $config;
+    }
     /**
      * Gets query for [[Comments]].
      *

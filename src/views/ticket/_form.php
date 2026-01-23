@@ -7,37 +7,11 @@ use kartik\editors\Summernote;
 use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var app\models\Ticket $model */
 /** @var yii\bootstrap5\ActiveForm $form */
-
-$initialPreview = [];
-$initialPreviewConfig = [];
-
-if (!$model->isNewRecord && !empty($model->attachments)) {
-    foreach ($model->attachments as $attachment) {
-        $ext = strtolower(pathinfo($attachment->file_name, PATHINFO_EXTENSION));
-        if (in_array($ext, ['jpg','jpeg','png','gif','webp'])) {
-            // Image preview
-            $initialPreview[] = $attachment->file_path;
-            $initialPreviewConfig[] = [
-                'caption' => $attachment->file_name,
-                'url' => ['/comment/delete-attachment', 'id' => $attachment->id], // optional delete URL
-                'key' => $attachment->id,
-            ];
-        } else {
-            // Non-image file
-            $initialPreview[] = Html::a($attachment->file_path, $attachment->file_path, ['target'=>'_blank']);
-            $initialPreviewConfig[] = [
-                'caption' => $attachment->file_name,
-                'url' => ['/comment/delete-attachment', 'id' => $attachment->id],
-                'key' => $attachment->id,
-                'type' => 'object', // non-image
-            ];
-        }
-    }
-}
 
 ?>
 
@@ -81,10 +55,10 @@ if (!$model->isNewRecord && !empty($model->attachments)) {
         'multiple' => true,
     ],
     'pluginOptions' => [
-        'showPreview' => true,
         'showCaption' => true,
         'showRemove' => true,
         'showUpload' => false,
+        'showClose'   => false,
         'browseClass' => 'btn btn-outline-primary',
         'browseIcon' => '<i class="bi bi-folder2-open"></i> ',
         'browseLabel' => 'Select Files',
@@ -100,9 +74,10 @@ if (!$model->isNewRecord && !empty($model->attachments)) {
             'showUpload'  => false,
             'showDrag'    => false,
         ],
-        'initialPreview' => $initialPreview,
+        'deleteUrl'            => Url::to(['ticket/delete-image']),
+        'initialPreview'        => $model->getImageUrls(),
         'initialPreviewAsData' => true, // show image previews
-        'initialPreviewConfig' => $initialPreviewConfig,
+        'initialPreviewConfig'  => $model->getPreviewImageConfig(),
         'overwriteInitial' => false,    // keep old files
     ],
 ])->label('Attachments') ?>

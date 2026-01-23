@@ -154,7 +154,7 @@ $this->title = Yii::t('app', 'Tickets');
                     <div class="flex-table-cell cell-status">
                         <span class="status-chip <?= strtolower(str_replace(' ', '_', $model->getStatusName())) ?>"><?= $model->getStatusName() ?></span>
                     </div>
-                    <div class="flex-table-cell cell-assigned-to"><?= $model->assignee->name ?></div>
+                    <div class="flex-table-cell cell-assigned-to"><?= $model->assignee?->name ?? 'Unassigned' ?></div>
                     <div class="flex-table-cell cell-created-date"><?= date('Y M d', strtotime($model['created_at'])) ?> </div>
                     <div class="flex-table-cell cell-action">
                         <div class="dropdown" data-bs-auto-close="outside">

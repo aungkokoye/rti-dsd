@@ -146,6 +146,8 @@ class TicketController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $model->attachmentFiles = \yii\web\UploadedFile::getInstances($model, 'attachmentFiles');
+            $this->saveAttachments($model);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -210,5 +212,26 @@ class TicketController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public function actionDeleteImage(): Response
+    {
+        /** Krajee FileInput plugin delete Ajax event sends key as delete file key, not id */
+        $file = Attachment::findOne(['id' => $this->request->post('key')]);
+        if(!$file) {
+            throw new NotFoundHttpException(Yii::t('app', 'The requested image file does not exist.'));
+        }
+
+        /** https://plugins.krajee.com/file-input/plugin-options#deleteUrl */
+        if ($file->delete()) {
+            $absolutePath = Yii::getAlias('@webroot') . $file->file_path;
+
+            if (file_exists($absolutePath)) {
+                unlink($absolutePath);
+            }
+            return $this->asJson(null);
+        }
+
+        return $this->asJson(['error' => true]);
     }
 }

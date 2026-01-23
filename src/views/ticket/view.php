@@ -197,7 +197,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="ticket-summary__item d-flex flex-column">
             <div class="ticket-summary__label text-muted small">Assigned To</div>
-            <div class="ticket-summary__value"><?= $model->assignee->name ?></div>
+            <div class="ticket-summary__value"><?= $model->assignee?->name ?? 'Unassigned' ?></div>
         </div>
 
         <div class="ticket-summary__item d-flex flex-column">
