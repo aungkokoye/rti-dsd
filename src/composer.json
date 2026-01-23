@@ -21,7 +21,8 @@
         "vlucas/phpdotenv": "^5.6",
         "kartik-v/yii2-editors": "dev-master",
         "yiisoft/yii2-jui": "^2.0",
-        "kartik-v/yii2-widget-datepicker": "^1.4"
+        "kartik-v/yii2-widget-datepicker": "^1.4",
+        "kartik-v/yii2-widget-fileinput": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

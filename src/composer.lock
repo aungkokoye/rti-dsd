@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bde5f665bf11877883de86c2fdc308f4",
+    "content-hash": "c9afa1e29e23ee4c4fe2485a7d86834d",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -71,28 +71,28 @@
             "version": "v2.3.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bestiejs/punycode.js.git",
+                "url": "https://github.com/mathiasbynens/punycode.js.git",
                 "reference": "9e1b2cda98d215d3a73fcbfe93c62e021f4ba768"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bestiejs/punycode.js/zipball/9e1b2cda98d215d3a73fcbfe93c62e021f4ba768",
+                "url": "https://api.github.com/repos/mathiasbynens/punycode.js/zipball/9e1b2cda98d215d3a73fcbfe93c62e021f4ba768",
                 "reference": "9e1b2cda98d215d3a73fcbfe93c62e021f4ba768"
             },
             "type": "bower-asset"
         },
         {
             "name": "bower-asset/yii2-pjax",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "git@github.com:yiisoft/jquery-pjax.git",
-                "reference": "a9298d57da63d14a950f1b94366a864bc62264fb"
+                "reference": "452b56b7124326487fd0d3be6b205fcaa66598a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/a9298d57da63d14a950f1b94366a864bc62264fb",
-                "reference": "a9298d57da63d14a950f1b94366a864bc62264fb"
+                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/452b56b7124326487fd0d3be6b205fcaa66598a0",
+                "reference": "452b56b7124326487fd0d3be6b205fcaa66598a0"
             },
             "require": {
                 "bower-asset/jquery": ">=1.8"
@@ -434,6 +434,69 @@
             "time": "2025-12-27T19:43:20+00:00"
         },
         {
+            "name": "kartik-v/bootstrap-fileinput",
+            "version": "v5.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
+                "reference": "8de1bed638823c70272b2578847e2b31e42677ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/8de1bed638823c70272b2578847e2b31e42677ba",
+                "reference": "8de1bed638823c70272b2578847e2b31e42677ba",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\plugins\\fileinput\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "An enhanced HTML 5 file input for Bootstrap 5.x, 4.x, and 3.x with features for file preview for many file types, multiple selection, ajax uploads, and more.",
+            "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
+            "keywords": [
+                "ajax",
+                "bootstrap",
+                "delete",
+                "file",
+                "image",
+                "input",
+                "jquery",
+                "multiple",
+                "preview",
+                "progress",
+                "upload"
+            ],
+            "support": {
+                "issues": "https://github.com/kartik-v/bootstrap-fileinput/issues",
+                "source": "https://github.com/kartik-v/bootstrap-fileinput/tree/v5.5.4"
+            },
+            "funding": [
+                {
+                    "url": "https://opencollective.com/bootstrap-fileinput",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2024-04-09T03:30:45+00:00"
+        },
+        {
             "name": "kartik-v/yii2-editors",
             "version": "dev-master",
             "source": {
@@ -610,6 +673,72 @@
                 "source": "https://github.com/kartik-v/yii2-widget-datepicker/tree/v1.4.8"
             },
             "time": "2021-10-28T03:58:09+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-widget-fileinput",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-widget-fileinput.git",
+                "reference": "b5500b6855526837154694c2afab8dbc3afc8abd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-fileinput/zipball/b5500b6855526837154694c2afab8dbc3afc8abd",
+                "reference": "b5500b6855526837154694c2afab8dbc3afc8abd",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/bootstrap-fileinput": ">=5.5.0",
+                "kartik-v/yii2-krajee-base": ">=3.0.5"
+            },
+            "default-branch": true,
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\file\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "An enhanced FileInput widget for Bootstrap 3.x, 4.x & 5.x with file preview, multiple selection, and more features (sub repo split from yii2-widgets)",
+            "homepage": "https://github.com/kartik-v/yii2-widget-fileinput",
+            "keywords": [
+                "extension",
+                "file",
+                "form",
+                "input",
+                "jquery",
+                "plugin",
+                "upload",
+                "widget",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/kartik-v/yii2-widget-fileinput/issues",
+                "source": "https://github.com/kartik-v/yii2-widget-fileinput/tree/v1.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://opencollective.com/yii2-widget-fileinput",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2022-06-28T04:31:04+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -6197,7 +6326,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kartik-v/yii2-editors": 20
+        "kartik-v/yii2-editors": 20,
+        "kartik-v/yii2-widget-fileinput": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

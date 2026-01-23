@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Attachment;
 use app\models\Ticket;
 use app\models\TicketSearch;
 use Yii;
@@ -10,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * TicketController implements the CRUD actions for Ticket model.
@@ -67,13 +69,18 @@ class TicketController extends Controller
      * Creates a new Ticket model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
+     * @throws Exception|\yii\base\Exception
      */
     public function actionCreate(): Response|string
     {
         $model = new Ticket();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            $model->load($this->request->post());
+            $model->attachmentFiles = UploadedFile::getInstances($model, 'attachmentFiles');
+
+            if ($model->save()) {
+                $this->saveAttachments($model);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -83,6 +90,41 @@ class TicketController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * Save attachments for a ticket
+     * @param Ticket $model
+     * @throws Exception
+     * @throws \yii\base\Exception
+     */
+    protected function saveAttachments(Ticket $model): void
+    {
+        if (!empty($model->attachmentFiles)) {
+            $uploadPath = Yii::getAlias('@webroot/uploads/tickets/' . $model->id);
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0777, true);
+            }
+
+            foreach ($model->attachmentFiles as $file) {
+                $fileName = time() . '_' . Yii::$app->security->generateRandomString(8) . '.' . $file->extension;
+                $filePath = $uploadPath . '/' . $fileName;
+
+                if ($file->saveAs($filePath)) {
+                    $attachment = new Attachment();
+                    $attachment->model_id = $model->id;
+                    $attachment->model_type = Ticket::class;
+                    $attachment->file_name = $file->baseName . '.' . $file->extension;
+                    $attachment->file_path = '/uploads/tickets/' . $model->id . '/' . $fileName;
+                    $attachment->mimie_type = $file->type;
+                    $attachment->file_size = $file->size;
+                    // created_by and created_at are handled by behaviors
+                    if (!$attachment->save()) {
+                        Yii::error('Failed to save attachment: ' . implode(', ', $attachment->getFirstErrors()));
+                    }
+                }
+            }
+        }
     }
 
     /**
