@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "ticket".
@@ -33,9 +34,7 @@ class Ticket extends \yii\db\ActiveRecord
     CONST STATUS_NEW = 1;
     CONST STATUS_IN_PROGRESS = 2;
     CONST STATUS_RESOLVED = 3;
-
     CONST STATUS_REQUEST_FOR_INFORMATION = 4;
-
     CONST STATUS_LACK_OF_CONTENT = 5;
     CONST STATUS_CLOSED = 6;
 
@@ -47,6 +46,11 @@ class Ticket extends \yii\db\ActiveRecord
         self::STATUS_LACK_OF_CONTENT => 'Lack Of Content',
         self::STATUS_CLOSED => 'Closed',
     ];
+
+    /**
+     * @var UploadedFile[]
+     */
+    public $attachmentFiles;
 
     /**
      * {@inheritdoc}
@@ -91,6 +95,7 @@ class Ticket extends \yii\db\ActiveRecord
             [['betting_number'], 'string', 'max' => 10],
             [['assignee_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['assignee_id' => 'id']],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['attachmentFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif, pdf, doc, docx, xls, xlsx, csv', 'maxFiles' => 5, 'maxSize' => 2 * 1024 * 1024],
         ];
     }
 
@@ -135,6 +140,12 @@ class Ticket extends \yii\db\ActiveRecord
         return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
+    public function getAttachments(): ActiveQuery
+    {
+        return $this->hasMany(Attachment::class, ['model_id' => 'id'])
+            ->andWhere(['model_type' => self::class]); // 'app\models\Ticket'
+    }
+
     /**
      * Gets query for [[Comments]].
      *
@@ -163,5 +174,10 @@ class Ticket extends \yii\db\ActiveRecord
     public function getStatusName(): string
     {
         return self::STATUS_TYPES[$this->status_id];
+    }
+
+    public function hasFiles(): bool
+    {
+        return $this->getAttachments()->exists();
     }
 }

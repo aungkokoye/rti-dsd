@@ -45,7 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'subject',
             'description:html',
-            'status',
             'betting_relative_user_id',
             'betting_number',
             'betting_time_of_occurrence',
@@ -55,6 +54,31 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'created_at',
             'updated_at',
+            [
+                'label' => 'Attachments',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if (!$model->hasFiles()) {
+                        return '<span class="text-muted">No attachments</span>';
+                    }
+                    $html = '';
+                    foreach ($model->attachments as $attachment) {
+                        $html .= '<div class="d-flex justify-content-between align-items-center mb-1">';
+                        $html .= Html::encode($attachment->file_name);
+                        $html .= Html::a(
+                            'Download',
+                            $attachment->file_path,
+                            [
+                                'class' => 'btn btn-sm btn-primary ms-2',
+                                'download' => $attachment->file_name,
+                                'title' => 'Download',
+                            ]
+                        );
+                        $html .= '</div>';
+                    }
+                    return $html;
+                },
+            ],
         ],
     ]) ?>
 

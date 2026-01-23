@@ -60,7 +60,7 @@ class TicketSearch extends Ticket
                     'created_at',
                     'updated_at'
                 ],
-                'defaultOrder' => ['created_at' => SORT_DESC],
+                'defaultOrder' => ['updated_at' => SORT_DESC],
             ],
         ]);
 
