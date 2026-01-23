@@ -13,29 +13,33 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Audit Logs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="audit-log-index">
+<div class="site-audit__list" id="page_wrapper">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="flex-table-container">
+        <!-- Table Header -->
+        <div class="flex-table-header">
+            <div class="flex-table-cell cell-ticket-id ">User ID</div>
+            <div class="flex-table-cell cell-title">Action</div>
+            <div class="flex-table-cell cell-ip-address">Ip Address</div>
+            <div class="flex-table-cell cell-created-date">Created Date</div>
+        </div>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            'id',
-            'user_id',
-            'action',
-            'model',
-            'model_id',
-            'ip_address',
-            'user_agent',
-            'data:ntext',
-            'created_at',
-        ],
-    ]); ?>
+        <!-- Table Body -->
+        <div class="flex-table-body">
+            <?php
 
-    <?php Pjax::end(); ?>
+            foreach ($dataProvider->models as $model) : ?>
+                <div class="flex-table-row">
+                    <div class="flex-table-cell cell-ticket-id"><?= $model->user_id ?></div>
+                    <div class="flex-table-cell cell-title"><?= $model->action ?></div>
+                    <div class="flex-table-cell cell-ip-address"><?= $model->ip_address ?></div>
+                    <div class="flex-table-cell cell-created-date"><?= date('Y M d', strtotime($model['created_at'])) ?> </div>
+
+                </div>
+            <?php endforeach; ?>
+
+        </div>
+    </div>
 
 </div>

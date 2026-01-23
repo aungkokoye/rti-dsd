@@ -111,6 +111,9 @@
 .cell-created-date, .cell-created-date { 
     flex: 1 1 120px; 
 }
+.cell-ip-address {
+    flex: 0 0 200px;
+}
 .cell-action { 
     flex: 0 0 50px; 
     overflow: visible; 
