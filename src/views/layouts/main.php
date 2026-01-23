@@ -39,8 +39,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto'],
         'items' => [
-                ['label' => 'Category', 'url' => ['/category/index']],
-                ['label' => 'Ticket', 'url' => ['/ticket/index']],
+                    ['label' => 'Audit', 'url' => ['/audit-log/index']],
+                    ['label' => 'Category', 'url' => ['/category/index']],
+                    ['label' => 'Ticket', 'url' => ['/ticket/index']],
                 ]
     ]);
 

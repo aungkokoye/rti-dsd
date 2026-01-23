@@ -1,5 +1,9 @@
 <?php
 
+use app\models\AuditLog;
+use yii\web\User;
+use yii\base\Event;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -7,7 +11,26 @@ $config = [
     'id' => 'rti',
     'name' => 'Domain Service Desk',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+        function () {
+            Event::on(
+                User::class,
+                User::EVENT_AFTER_LOGIN,
+                function ($event) {
+                    AuditLog::log(AuditLog::ACTION_LOGIN);
+                }
+            );
+
+            Event::on(
+                User::class,
+                User::EVENT_BEFORE_LOGOUT,
+                function ($event) {
+                    AuditLog::log(AuditLog::ACTION_LOGOUT);
+                }
+            );
+        },
+    ],
     'container' => [
         'definitions' => [
             \yii\bootstrap5\LinkPager::class => [
