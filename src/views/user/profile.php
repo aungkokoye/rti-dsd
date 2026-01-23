@@ -44,11 +44,6 @@ use yii\helpers\Html;
                         <?= $type ?>
                     </option>
                 <?php endforeach ?>
-                <option selected>Designer</option>
-                <option value="admin">Admin</option>
-                <option value="developer">Developer</option>
-                <option value="developer">Designer</option>
-                <option value="user">User</option>
             </select>
         </div>
 

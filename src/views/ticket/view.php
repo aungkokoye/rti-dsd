@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="site-detail_ticket" id="page_wrapper">
     <div class="site_id">
-        Site ID: 1101
+        Site ID: -
     </div>
     <h4><?= $model->subject ?> </h4>
     <div class="d-flex gap-3 action_btns">
@@ -181,6 +181,30 @@ $this->params['breadcrumbs'][] = $this->title;
             </p>
         </div>
     </div>
+
+    <?php if (!empty($model->betting_number)): ?>
+        <div class="betting_number__wrapper">
+            <div class="title">
+                <span>Betting Number</span>
+                <span class="line"></span>
+            </div>
+            <div class="description">
+                <p><?= $model->betting_number ?></p>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if (!empty($model->betting_time_of_occurrence)): ?>
+        <div class="betting_number__wrapper">
+            <div class="title">
+                <span>Betting Time Of Occurrence</span>
+                <span class="line"></span>
+            </div>
+            <div class="description">
+                <p><?= $model->betting_time_of_occurrence ?></p>
+            </div>
+        </div>
+    <?php endif; ?>
+
 
     <div class="attachment__wrapper">
         <div class="title">

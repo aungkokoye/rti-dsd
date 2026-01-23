@@ -188,11 +188,13 @@ body {
     font-weight: 500;
     padding: 8px;
 }
-.site-detail_ticket .description__wrapper, 
+.site-detail_ticket .description__wrapper,
+.site-detail_ticket .betting_number__wrapper,
 .site-detail_ticket .attachment__wrapper {
     margin-top: 35px;
 }
 .site-detail_ticket .description__wrapper .title,
+.site-detail_ticket .betting_number__wrapper .title,
 .site-detail_ticket .attachment__wrapper .title {
     font-size: 15px;
     font-weight: 600;
@@ -200,8 +202,10 @@ body {
     align-items: center;
     gap: 24px;
     margin-bottom: 10px;
+    white-space: nowrap;
 }
 .site-detail_ticket .description__wrapper .title .line,
+.site-detail_ticket .betting_number__wrapper .title .line,
 .site-detail_ticket .attachment__wrapper .title .line {
     background: #DADADA;
     height: 2px;
