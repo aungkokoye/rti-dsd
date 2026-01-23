@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Ticket;
 use yii\helpers\Html;
 ?>
 <!-- Custom Modal -->
@@ -25,17 +26,24 @@ use yii\helpers\Html;
     <div>
         <div class="mb-3 field-profile-username required" bis_skin_checked="1">
             <label class="col-form-label" for="profile-username">Username</label>
-            <input type="text" value="Denny" id="profile-username" class="col-lg-3 form-control" disabled>
+            <input type="text" value="<?= Yii::$app->user->identity->name; ?>" id="profile-username" class="col-lg-3 form-control" disabled>
         </div>
 
         <div class="mb-3 field-profile-email required" bis_skin_checked="1">
             <label class="col-form-label" for="profile-email">Email</label>
-            <input type="text" value="denny123@gmail.com" id="profile-email" class="col-lg-3 form-control" disabled>
+            <input type="text" value="<?= Yii::$app->user->identity->username; ?>" id="profile-email" class="col-lg-3 form-control" disabled>
         </div>
 
         <div class="mb-3 field-profile-role required" bis_skin_checked="1">
             <label class="col-form-label" for="profile-role">Role</label>
             <select class="form-select" disabled>
+                <?php foreach (Ticket::STATUS_TYPES as $key => $type): ?>
+                    <option
+                        value="<?= $key ?>"
+                        <?= $key == Yii::$app->user->identity->role ? 'selected' : '' ?>>
+                        <?= $type ?>
+                    </option>
+                <?php endforeach ?>
                 <option selected>Designer</option>
                 <option value="admin">Admin</option>
                 <option value="developer">Developer</option>
