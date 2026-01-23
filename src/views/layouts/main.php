@@ -66,11 +66,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     'url' => ['/category/index'],
                     'active' => Yii::$app->controller->id === 'category' && Yii::$app->controller->action->id === 'index',
                 ],
-                // [
-                //     'label' => 'User List', 
-                //     'url' => ['/user/list'],
-                //     'active' => Yii::$app->controller->id === 'user' && Yii::$app->controller->action->id === 'list',
-                // ],
+                [
+                    'label' => 'User management', 
+                    'url' => ['/user/list'],
+                    'active' => Yii::$app->controller->id === 'user' && Yii::$app->controller->action->id === 'list',
+                ],
             ],
         ]);
 
