@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Ticket;
+use app\models\User;
 use yii\helpers\Html;
 ?>
 <!-- Custom Modal -->
@@ -37,7 +38,7 @@ use yii\helpers\Html;
         <div class="mb-3 field-profile-role required" bis_skin_checked="1">
             <label class="col-form-label" for="profile-role">Role</label>
             <select class="form-select" disabled>
-                <?php foreach (Ticket::STATUS_TYPES as $key => $type): ?>
+                <?php foreach (User::USER_TYPES as $key => $type): ?>
                     <option
                         value="<?= $key ?>"
                         <?= $key == Yii::$app->user->identity->role ? 'selected' : '' ?>>
